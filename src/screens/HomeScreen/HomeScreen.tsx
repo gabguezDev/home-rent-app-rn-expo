@@ -1,36 +1,62 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { styles } from "./HomeScreen.styles";
-import { View, Text, DrawerSlideEvent } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { View } from "react-native";
+import { DrawerNavigationOptions } from "@react-navigation/drawer";
+
 import {
-	useDrawerStatus,
-	DrawerScreenProps,
-	DrawerNavigationOptions,
-} from "@react-navigation/drawer";
+	FilterButton,
+	LocationDropdown,
+	NotificationButton,
+	PropertiesList,
+	PropertiesSlider,
+	PropertyTypeSelector,
+	Searchbar,
+} from "../../components";
+import { Section } from "../../Layout";
+import { ScrollView } from "react-native-gesture-handler";
 
 interface Props extends DrawerNavigationOptions {}
 
 export const HomeScreen = (props: Props) => {
-	// let drawer = useDrawerStatus();
-	// const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
-	// useEffect(() => {
-	// setIsDrawerOpen(drawer == "open");
-	// }, [isDrawerOpen]);
-
-	console.log(props);
 	return (
-		<View
-			style={{
-				flex: 1,
-				backgroundColor: "white",
-				padding: 20,
-
-				// borderTopLeftRadius: isDrawerOpen ? 50 : 0,
-			}}
-		>
-			<Text>HomeScreen</Text>
-		</View>
+		<ScrollView>
+			<View
+				style={{
+					flex: 1,
+					backgroundColor: "white",
+					padding: 20,
+					overflow: "scroll",
+				}}
+			>
+				<View
+					style={{
+						flexDirection: "row",
+						alignItems: "center",
+						justifyContent: "space-between",
+					}}
+				>
+					<LocationDropdown />
+					<NotificationButton />
+				</View>
+				<View
+					style={{
+						flexDirection: "row",
+						alignItems: "center",
+						justifyContent: "space-between",
+					}}
+				>
+					<Searchbar />
+					<FilterButton />
+				</View>
+				<PropertyTypeSelector />
+				<Section sectionName="Cerca tuyo">
+					<PropertiesSlider />
+				</Section>
+				<Section sectionName="Mejor para tí">
+					<PropertiesList />
+				</Section>
+			</View>
+		</ScrollView>
 	);
 };
